@@ -2,8 +2,10 @@
 
 angular
   .module('githubClientFirebaseApp', [
+    'config',
     'ngSanitize',
-    'ngRoute'
+    'ngRoute',
+    'firebase'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -11,7 +13,14 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/my', {
+        templateUrl: 'views/my.html',
+        controller: 'MyCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+
+;
+
