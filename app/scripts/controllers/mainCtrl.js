@@ -15,7 +15,7 @@ angular.module('githubClientFirebaseApp')
       return Auth.auth.$login('github', {
         rememberMe: true
       })
-        .then(function (user) {
+        .then(function () {
           $location.path('/my');
         })
         .catch(function (e) {
