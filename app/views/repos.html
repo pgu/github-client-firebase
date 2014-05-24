@@ -1,0 +1,100 @@
+<div>
+  <p></p>
+
+  <form ng-submit="searchRepositories()" class="form-inline">
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Type the name of a repository"
+                 ng-model="repoName"
+                 ng-disabled="isSearching">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="submit" ng-disabled="isSearching">
+            <i class="fa fa-search"></i>
+          </button>
+        </span>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="form-group">
+          <select ui-select2="{ allowClear: true}"
+                  ng-model="paramSort"
+                  style="min-width: 150px"
+                  data-placeholder="Sort">
+            <option value=""></option>
+            <option value="stars">Stars</option>
+            <option value="forks">Forks</option>
+            <option value="updated">Updated</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select ui-select2="{ allowClear: true}"
+                  ng-model="paramOrder"
+                  ng-disabled="isSortDisabled()"
+                  style="min-width: 150px"
+                  data-placeholder="Order">
+            <option value=""></option>
+            <option value="asc">Asc</option>
+            <option value="desc">Desc</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <p></p>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <i class="fa fa-fw fa-cubes"></i>
+      Repositories <span ng-if="repositories">({{ total }})</span>
+    </div>
+    <div class="panel-body">
+
+      <div class="row">
+        <div class="col-xs-4">
+          <repositories-list repositories="repositories"
+                             start="0"
+                             stop="10"></repositories-list>
+        </div>
+        <div class="col-xs-4">
+          <repositories-list repositories="repositories"
+                             start="10"
+                             stop="20"></repositories-list>
+        </div>
+        <div class="col-xs-4">
+          <repositories-list repositories="repositories"
+                             start="20"
+                             stop="repositories.length"></repositories-list>
+        </div>
+      </div>
+
+      <ul class="pager" style="margin: 0">
+
+        <li ng-class="{ 'disabled': !previousUrl }"
+            ng-click="searchRepositoriesByUrl(previousUrl)"
+          >
+          <button type="button"
+                  class="btn btn-link"
+                  ng-disabled="!previousUrl"
+                  ng-if="previousLabel"
+            >&larr; {{ previousLabel }}
+          </button>
+        </li>
+
+        <li ng-class="{ 'disabled': !nextUrl }"
+            ng-click="searchRepositoriesByUrl(nextUrl)"
+          >
+          <button type="button"
+                  class="btn btn-link"
+                  ng-disabled="!nextUrl"
+                  ng-if="nextLabel"
+            >{{ nextLabel }} &rarr;
+          </button>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+</div>

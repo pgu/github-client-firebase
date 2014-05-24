@@ -1,0 +1,40 @@
+<div class="jumbotron">
+  <p class="lead">
+    <img
+      src="https://github.global.ssl.fastly.net/images/icons/emoji/octocat.png"
+      style="height: 80px;">
+    <img
+      src="https://www.firebase.com/resources/images/website/logos/firebase-symbol.png"
+      style="height: 75px;">
+  </p>
+
+  <p ng-show-auth="logout,error"
+     class="lead"
+     style="line-height: 2">
+
+    <span>
+      Log in with GitHub and let's do some searching and analytics!
+      <img src="https://github.global.ssl.fastly.net/images/icons/emoji/bowtie.png"
+           style="width: 40px">
+    </span>
+
+    <button class="btn btn-lg btn-primary btn-login"
+            ng-click="login()">
+      <i class="fa fa-fw fa-github"></i>
+      Log In
+    </button>
+  </p>
+
+  <p ng-show-auth="login"
+     class="lead">
+    Welcome <strong>{{ user.displayName }}</strong>!
+    <br><br>
+
+    <a class="btn btn-lg btn-primary"
+       ng-href="/#/repos">
+      <i class="fa fa-fw fa-search"></i>
+      Search repositories
+    </a>
+  </p>
+
+</div>

@@ -1,0 +1,9 @@
+<ul class="nav nav-pills nav-stacked">
+  <li ng-repeat="repo in repositories"
+      ng-if="start <= $index && $index < stop"
+      class="repeated-item animate-if"
+      style="min-width: 175px;"
+    >
+    <a ng-href="/#/repos/{{repo.full_name}}">{{ repo.full_name }}</a>
+  </li>
+</ul>
