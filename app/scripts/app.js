@@ -20,7 +20,7 @@ angular
     }
 
     $httpProvider.interceptors.push(
-      function (errorHelper, GitHubAuth, $window) {
+      function (errorHelper, GitHubAuth, $window, $q) {
 
         var moment = $window.moment;
 
@@ -56,7 +56,7 @@ angular
               errorHelper.apiCallErrors.push(newError);
             }
 
-            return rejection;
+            return $q.reject(rejection);
           }
         };
       }
@@ -73,11 +73,17 @@ angular
         controller: 'HomeCtrl'
       })
 
-      .when('/repos/:fullname', {
+      .when('/404', {
+        templateUrl: '404.html'
+      })
+
+      .when('/repos/:pre/:name', {
         authRequired: true, // must authenticate before viewing this page
         resolve: {
           repo: function (repoResolver, $route) {
-            return repoResolver.fetchRepo($route.current.params.fullname);
+            var p = $route.current.params;
+            var fullname = p.pre + '/' + p.name;
+            return repoResolver.fetchRepo(fullname);
           }
         },
         templateUrl: 'views/repo.html',
@@ -96,7 +102,6 @@ angular
   })
 
   .run(function (GitHubAuth) {
-    console.warn('> RUN');
     GitHubAuth.init();
   })
 

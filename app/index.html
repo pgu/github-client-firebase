@@ -9,17 +9,17 @@
 <html class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title></title>
-  <meta name="description" content="">
+  <title>GitHub client with FireBase</title>
+  <meta name="description" content="GitHub client with FireBase">
   <meta name="viewport" content="width=device-width">
   <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
-  <link rel="stylesheet" href="bower_components/angular-loading-bar/src/loading-bar.css" />
-  <link rel="stylesheet" href="bower_components/select2/select2.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+  <link rel="stylesheet" href="bower_components/angular-loading-bar/src/loading-bar.css"/>
+  <link rel="stylesheet" href="bower_components/select2/select2.css"/>
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css({.tmp,app}) styles/main.css -->
@@ -34,8 +34,22 @@
 
 <div class="container">
 
-  <div ng-controller="AppHeaderCtrl" class="header">
-    <h3 class="text-muted">
+  <div ng-controller="AppHeaderCtrl">
+    <div class="notifications" ng-show="errorHelper.apiCallErrors.length">
+      <button type="button" class="close" aria-hidden="true" ng-click="errorHelper.apiCallErrors = []">&times;</button>
+      <p class="notification-warning repeated-item" ng-repeat="err in errorHelper.apiCallErrors">
+        <strong>{{ err.url }}</strong><br/>
+    <span ng-if="err.limit" class="animate-if">Rate limit: <strong>{{ err.remaining }} / {{ err.limit }}</strong>. Reset at <strong>{{
+      err.reset }}</strong><br/></span>
+    <span ng-if="err.message" class="text-warning animate-if">{{ err.message }} <a ng-href="{{ err.documentation_url }}"
+                                                                                   target="_blank"
+                                                                                   class="alert-link">(see
+      Docs)</a></span>
+      </p>
+    </div>
+
+    <div class="header">
+      <h3 class="text-muted">
       <span ng-show-auth="login"
             class="pull-right">
         <button class="btn btn-sm btn-default"
@@ -50,8 +64,9 @@
           <img ng-src="{{ user.thirdPartyUserData.avatar_url }}">
         </a>
       </span>
-      GitHub client with Firebase
-    </h3>
+        GitHub client with Firebase
+      </h3>
+    </div>
   </div>
 
   <div ng-view="">
@@ -97,6 +112,9 @@
 <script src="bower_components/lodash/dist/lodash.compat.js"></script>
 <script src="bower_components/select2/select2.js"></script>
 <script src="bower_components/angular-ui-select2/src/select2.js"></script>
+<script src="bower_components/highcharts-release/highcharts.js"></script>
+<script src="bower_components/highcharts-release/modules/heatmap.js"></script>
+<script src="bower_components/highcharts-release/modules/exporting.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -110,6 +128,10 @@
 <script src="scripts/services/GitHubAuth.js"></script>
 <script src="scripts/resolvers/repoResolver.js"></script>
 <script src="scripts/directives/repositoriesList.js"></script>
+<script src="scripts/directives/commitsChart.js"></script>
+<script src="scripts/directives/contributorsChart.js"></script>
+<script src="scripts/directives/contributorsHeatmap.js"></script>
+<script src="scripts/directives/contributorsList.js"></script>
 <script src="scripts/controllers/appHeaderCtrl.js"></script>
 <script src="scripts/controllers/homeCtrl.js"></script>
 <script src="scripts/controllers/reposCtrl.js"></script>

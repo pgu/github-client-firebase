@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('githubClientFirebaseApp')
-  .controller('AppHeaderCtrl', function ($scope, $rootScope, GitHubAuth, waitForAuth) {
+  .controller('AppHeaderCtrl', function ($scope, $rootScope, GitHubAuth, waitForAuth, errorHelper) {
+
+    $scope.errorHelper = errorHelper;
 
     waitForAuth.then(function () {
       console.log('> header, waitforauth');

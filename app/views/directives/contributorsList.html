@@ -1,0 +1,16 @@
+<div class="list-group">
+  <a ng-repeat="contributor in contributors"
+     ng-if="start <= $index && $index < stop"
+     class="list-group-item repeated-item animate-if"
+     style="min-width: 175px;"
+     target="_blank"
+     ng-href="{{ contributor.html_url }}"
+    >
+    <span>
+      <img ng-src="{{ contributor.avatar_url }}"
+           class="contributor-avatar">
+    </span>
+    <span class="badge pull-right">{{ contributor.contributions }}</span>
+    {{ contributor.login }}
+  </a>
+</div>

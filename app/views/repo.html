@@ -1,5 +1,114 @@
 <div>
-  <p>Repo: {{ repo.full_name }}</p>
+
+  <h1 class="page-header">
+    {{ repo.full_name }}
+    <a ng-href="{{ repo.html_url }}"
+       target="_blank"
+       class="small"
+      ><i class="fa fa-fw fa-external-link"></i></a>
+  </h1>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <i class="fa fa-fw fa-users"></i>
+      Contributors
+      <i class="fa fa-fw fa-refresh fa-spin" ng-show="isFetchingContributors"></i>
+    </div>
+    <div class="panel-body">
+      <div ng-if="contributors.length" class="animate-if">
+
+        <div class="row">
+          <div class="col-xs-4">
+            <contributors-list contributors="contributors"
+                               start="0"
+                               stop="10"></contributors-list>
+          </div>
+          <div class="col-xs-4">
+            <contributors-list contributors="contributors"
+                               start="10"
+                               stop="20"></contributors-list>
+          </div>
+          <div class="col-xs-4">
+            <contributors-list contributors="contributors"
+                               start="20"
+                               stop="contributors.length"></contributors-list>
+          </div>
+        </div>
+
+        <ul class="pager" style="margin: 0">
+
+          <li ng-class="{ 'disabled': !contributorsPreviousUrl }"
+              ng-click="goToContributors(contributorsPreviousUrl)"
+            >
+            <button type="button"
+                    class="btn btn-link"
+                    ng-if="contributorsPreviousLabel"
+                    ng-disabled="!contributorsPreviousUrl"
+              >&larr; {{ contributorsPreviousLabel }}
+            </button>
+          </li>
+
+          <li ng-class="{ 'disabled': !contributorsNextUrl }"
+              ng-click="goToContributors(contributorsNextUrl)"
+            >
+            <button type="button"
+                    class="btn btn-link"
+                    ng-if="contributorsNextLabel"
+                    ng-disabled="!contributorsNextUrl"
+              >{{ contributorsNextLabel }} &rarr;
+            </button>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <p></p>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <i class="fa fa-fw fa-bar-chart-o"></i>
+      Contributors for the latest {{ COMMITS_LIMIT }} commits
+    </div>
+    <div class="panel-body">
+      <contributors-chart id="contributors100"
+                          class="contributors-chart"
+                          data="contributorsChartData"></contributors-chart>
+    </div>
+  </div>
+
+  <p></p>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <i class="fa fa-fw fa-clock-o"></i>
+      Timeline for the latest {{ COMMITS_LIMIT }} commits
+    </div>
+    <div class="panel-body">
+      <commits-chart id="commits100"
+                     class="commits-chart"
+                     data="commitsChartData"></commits-chart>
+    </div>
+  </div>
+
+  <p></p>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <i class="fa fa-fw fa-star"></i>
+      Heatmap of the top 10 contributors for the latest {{ COMMITS_LIMIT }} commits
+    </div>
+    <div class="panel-body">
+      <contributors-heatmap id="contributorsHeatmap"
+                            class="contributors-heatmap"
+                            categories="contributorsHeatCategories"
+                            data="contributorsHeatData"></contributors-heatmap>
+    </div>
+  </div>
+
+</div>
 
 
 </div>

@@ -1,10 +1,14 @@
 'use strict';
 
 angular.module('githubClientFirebaseApp')
-  .factory('repoResolver', function ($q, $location, $http) {
+  .factory('repoResolver', function ($q, $location, $http, GitHubAuth) {
 
     return {
       fetchRepo: function (repoFullname) {
+
+        if (!GitHubAuth.getAuth().user) {
+          return $q.reject('Still not authenticated');
+        }
 
         return $http.get('https://api.github.com/repos/' + repoFullname)
 
@@ -12,10 +16,11 @@ angular.module('githubClientFirebaseApp')
             return res.data;
           })
 
-          .catch(function () {
-            console.warn('> allooo???');
-            $location.url('/404.html');
-            return $q.reject('Repo not found');
+          .catch(function (e) {
+            if (e.status === 404) {
+              $location.path('/404');
+            }
+            return $q.reject(e);
           });
       }
     };
