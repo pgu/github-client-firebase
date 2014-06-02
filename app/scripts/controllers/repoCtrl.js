@@ -1,11 +1,14 @@
 'use strict';
 
 angular.module('githubClientFirebaseApp')
-  .controller('RepoCtrl', function ($scope, repo, apiHelper, $http, $q, $window) {
+  .controller('RepoCtrl', function ($scope, repo, apiHelper, $http, $q, $window, reposService, GitHubAuth) {
 
     var moment = $window.moment;
 
     $scope.repo = repo;
+
+    var user = GitHubAuth.getAuth().user;
+    reposService.$add({ repo_name: repo.full_name, user_id: user.thirdPartyUserData.id, user_name: user.displayName });
 
     $scope.goToContributors = function (url) {
 

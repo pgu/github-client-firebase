@@ -1,9 +1,11 @@
 'use strict';
 
 angular.module('githubClientFirebaseApp')
-  .controller('ReposCtrl', function ($scope, GitHubAuth, $http, apiHelper) {
+  .controller('ReposCtrl', function ($scope, GitHubAuth, $http, apiHelper, reposService) {
 
     $scope.user = GitHubAuth.getAuth().user;
+
+    $scope.previousRepositories = reposService;
 
     $scope.searchRepositories = function () {
 
