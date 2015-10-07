@@ -9,6 +9,8 @@ Purpose
 ---
 Webapp that allows the search of public :octocat: repositories and show some analytics for the selected project, with **https**.
 
+![](github-firebase.gif)
+
 Technologies
 ---
 
